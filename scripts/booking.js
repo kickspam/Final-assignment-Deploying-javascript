@@ -12,43 +12,54 @@ const calculatedCostElement = document.getElementById('calculated-cost'); // Ele
 let totalCost = 0;
 
 /********* color change days of week *********/
-// Add event listeners to day buttons
-for (let i = 0; i < dayButtons.length; i++) {
-    dayButtons[i].addEventListener('click', function() {
-        if (!this.classList.contains('clicked')) {
-            this.classList.add('clicked');
-            selectedDays++;
-            recalculateCost();
-        }
-    });
+// Define a function to handle day button clicks
+function handleDayClick() {
+    if (!this.classList.contains('clicked')) {
+        this.classList.add('clicked');
+        selectedDays++;
+        recalculateCost();
+    }
 }
 
+// Add event listeners to day buttons
+dayButtons.forEach(function(button) {
+    button.addEventListener('click', handleDayClick);
+});
+
 /********* clear days *********/
-// Add event listener to clear button
-clearButton.addEventListener('click', function() {
-    for (let i = 0; i < dayButtons.length; i++) {
-        dayButtons[i].classList.remove('clicked');
-    }
+// Define a function to handle clear button click
+function handleClearClick() {
+    dayButtons.forEach(function(button) {
+        button.classList.remove('clicked');
+    });
     selectedDays = 0;
     totalCost = 0;
     updateCostDisplay();
-});
+}
+
+// Add event listener to clear button
+clearButton.addEventListener('click', handleClearClick);
 
 /********* change rate *********/
-// Add event listeners to rate buttons
-halfDayButton.addEventListener('click', function() {
+// Define a function to handle half-day button click
+function handleHalfDayClick() {
     dailyRate = 20;
     halfDayButton.classList.add('clicked');
     fullDayButton.classList.remove('clicked');
     recalculateCost();
-});
+}
 
-fullDayButton.addEventListener('click', function() {
+// Define a function to handle full-day button click
+function handleFullDayClick() {
     dailyRate = 35;
     fullDayButton.classList.add('clicked');
     halfDayButton.classList.remove('clicked');
     recalculateCost();
-});
+}
+
+// Add event listeners to rate buttons
+halfDayButton.addEventListener('click', handleHalfDayClick);
+fullDayButton.addEventListener('click', handleFullDayClick);
 
 /********* calculate *********/
 // Function to recalculate and display the cost

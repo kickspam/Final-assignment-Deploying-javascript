@@ -1,5 +1,5 @@
 // when the "submit-button" is clicked, the contents of the contact-page are replaced with a single <p> element that reads "Thank you for your message" in size 24 font.
-document.getElementById('submit-button').addEventListener('click', (event) => {
+document.getElementById('submit-button').addEventListener('click', function(event) {
     // Prevent the default form submission action
     event.preventDefault();
 
